@@ -3,7 +3,7 @@ A regular trash bot made in node.JS
 
 # Some steps before downloading it:
 
-1.BE SURE YOU DOWNLOAD NODE.JS
+- BE SURE YOU DOWNLOAD NODE.JS
 
 2.PLEASE USE SDA(Steam Desktop Authenticator);
 
