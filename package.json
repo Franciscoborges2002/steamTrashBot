@@ -1,0 +1,17 @@
+{
+  "name": "steam_trash_bot",
+  "version": "1.0.0",
+  "description": "A normal steam trash bot",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "v0x4r1n0",
+  "license": "ISC",
+  "dependencies": {
+    "steam-totp": "^2.1.0",
+    "steam-tradeoffer-manager": "^2.9.5",
+    "steam-user": "^4.5.0",
+    "steamcommunity": "^3.39.0"
+  }
+}
