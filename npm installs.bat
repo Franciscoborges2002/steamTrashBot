@@ -1,6 +1,7 @@
 @echo off
 cls
 echo Starting all downloads :)
+npm install
 npm install steam-user
 npm install steam-totp
 npm install steamcommunity
