@@ -5,9 +5,13 @@ A regular steam Trash Bot.
 Some steps before downloading it:
 
 1.BE SURE YOU DOWNLOAD NODE.JS
+
 2.PLEASE USE SDA(Steam Desktop Authenticator);
+
 3.You are going to need shared secret code;
+
 4.You are going to need identity secret code;
+
 
 
 --How to download SDA?
