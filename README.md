@@ -1,7 +1,7 @@
 # steamTrashBot
 A regular trash bot made in node.JS
 
-# Some steps before downloading it:
+## Some steps before downloading it:
 
 - BE SURE YOU DOWNLOAD NODE.JS
 
@@ -11,7 +11,7 @@ A regular trash bot made in node.JS
 
 - 
 
-# Links:
+## Links:
 
 --How to download SDA?
 https://steamdesktopauthenticator.com
