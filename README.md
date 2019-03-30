@@ -5,11 +5,11 @@ A regular trash bot made in node.JS
 
 - BE SURE YOU DOWNLOAD NODE.JS
 
-- PLEASE USE SDA(Steam Desktop Authenticator);
+- Please use SDA(Steam Desktop Authenticator);
 
-- You are going to need shared secret code;
+- You are going to need shared secret code and identity secret code;
 
-- You are going to need identity secret code;
+- 
 
 # Links:
 
