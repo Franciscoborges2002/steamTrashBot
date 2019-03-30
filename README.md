@@ -23,4 +23,6 @@ https://github.com/SteamTimeIdler/stidler/wiki/Getting-your-%27shared_secret%27-
 --How to get identity secret code?
 https://forums.backpack.tf/topic/46354-guide-how-to-find-the-steam-identity_secret-on-an-android-phone/
 
-# 
+# After all this be sure the first file you execute is npm install
+
+-- I hope you enjoyy
