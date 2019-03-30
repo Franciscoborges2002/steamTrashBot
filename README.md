@@ -2,6 +2,7 @@
 A regular trash bot made in node.JS
 
 A regular steam Trash Bot.
+
 #Some steps before downloading it:
 
 1.BE SURE YOU DOWNLOAD NODE.JS
