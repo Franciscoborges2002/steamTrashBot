@@ -9,7 +9,6 @@ A regular trash bot made in node.JS
 
 - You are going to need shared secret code and identity secret code;
 
-- 
 
 ## Links:
 
@@ -25,4 +24,6 @@ https://forums.backpack.tf/topic/46354-guide-how-to-find-the-steam-identity_secr
 
 # After all this be sure the first file you execute is npm install
 
--- I hope you enjoyy
+- I hope you enjoyy
+
+-- Made ve v0x4R1N0
