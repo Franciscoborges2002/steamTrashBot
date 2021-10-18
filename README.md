@@ -25,5 +25,3 @@ https://forums.backpack.tf/topic/46354-guide-how-to-find-the-steam-identity_secr
 # After all this be sure the first file you execute is npm install
 
 - I hope you enjoyy
-
--- Made ve v0x4R1N0
