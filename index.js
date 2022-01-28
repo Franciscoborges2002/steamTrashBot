@@ -3,11 +3,12 @@ const SteamUser = require('steam-user');
 const SteamTotp = require('steam-totp');
 const SteamCommunity = require('steamcommunity'); 
 const TradeOfferManager = require('steam-tradeoffer-manager');
+require('dotenv').config();
 
 //Pastes & other things
 const config = require('./config.js');
 const messages = require('./messages.js');
-const nickname = 'v000OOx';
+const nickname = '-voxbtw';
 let prefix = '-';
 let botID64 = '76561198067106756';
 var acceptAllGroupInvites = 'false';
@@ -32,10 +33,10 @@ client.logOn(logOnOptions);
 
 client.on('loggedOn', () => {
     client.getPersonas([client.steamID], (personas) => {
-        console.log('Logged in as ' + nickname + " [ " + client.steamID + " ].");  
+        console.log('Logged in as ' + client.accountInfo.name + " [ " + client.steamID + " ].");  
 	
         client.setPersona(1 , nickname); 
-        client.gamesPlayed(['xDDDD', 0, 440, 730, 531390, 531430, 531460, 578080, 622590, 813000, 777320, 433850, 439700, 553900, 876733, 304930, 10, 80, 363970]);
+        client.gamesPlayed(['trashBot activated', 0, 440, 730, 531390, 531430, 531460, 578080, 622590, 813000, 777320, 433850, 439700, 553900, 876733, 304930, 10, 80, 363970]);
         client.chatMessage(steamID64Owner, 'Bot is online :)');
     });
 });
@@ -58,7 +59,7 @@ client.on('friendMessage', function(steamID, message){
             client.chatMessage(steamID, 'Command not found. Try to witre "' + prefix +'help"');
         };
 
-        if(message === prefix + 'help'){
+        if(message === prefix + 'help'){//Help message
             client.chatMessage(steamID, messages.help);
         };
 
@@ -90,7 +91,7 @@ manager.on('newOffer', offer =>{
             var botComment = '𝙏𝙝𝙖𝙣𝙠 𝙮𝙤𝙪 ' + name + ' 𝙛𝙤𝙧 𝙩𝙝𝙚 𝙙𝙤𝙣𝙖𝙩𝙞𝙤𝙣.\n𝙃𝙚 𝙜𝙞𝙫𝙚𝙙 ' + offer.itemsToReceive.length + ' 𝙞𝙩𝙚𝙢𝙨.' + '\n\nhttp://steamcommunity.com/profiles/' + steamID ;
 
 
-            function acceptOffer(offer){
+            function acceptOffer(offer){//Function to accep the offer
                 offer.accept((err, status) => {
                     if(err){
                         console.log('>ERROR< Error while accepting offer . Error: ' + err);
@@ -98,7 +99,7 @@ manager.on('newOffer', offer =>{
                         console.log(`>OFFER< Offer accepted. Status: ${status}.`);
                     };
             })};
-            function declineOffer(offer){
+            function declineOffer(offer){//Function to decline the offer
                 offer.decline((err, status) => {
                     if(err){
                         console.log('>ERROR< Error while declining offer . Error: ' + error);
@@ -116,12 +117,13 @@ manager.on('newOffer', offer =>{
                 client.chatMessage(steamID64Owner, 'You have received trash $-$');
                 console.log('>OFFER< Donation from ' + name  + '.');
                 client.chatMessage(steamID, messages.offer);
-                community.postUserComment(steamID, '+rep thanks to the trash dude :)', function(err){
+                community.postUserComment(steamID, messages.commentOnProfile, function(err){
                     if(err){
+                        client.chatMessage(steamID, messages.commentOnProfileDonatorERROR);
                         console.log('>ERROR< Error while comenting on users profile. Error: ' + err);
                     } else {
                         console.log('>SUCESS< The comment has been dropped in users profile:)');
-                        client.chatMessage(steamID, messages.commentHasBeenDropped);
+                        client.chatMessage(steamID, messages.commentOnProfileDonator);
                         community.postUserComment(botID64, botComment, function(err){
                             if(err){
                                 console.log(err);
@@ -143,6 +145,8 @@ manager.on('newOffer', offer =>{
     });
 });
 
+
+//Add the person automatically
 client.on('friendRelationship', (steamID, relationship) =>{
     client.getPersonas([steamID], function(err, personas) {
         if(err){

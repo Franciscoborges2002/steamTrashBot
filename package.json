@@ -4,11 +4,13 @@
   "description": "A normal steam trash bot",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "nodemon index"
   },
   "author": "v0x4r1n0",
   "license": "ISC",
   "dependencies": {
+    "dotenv": "^14.3.2",
+    "nodemon": "^2.0.15",
     "steam-totp": "^2.1.0",
     "steam-tradeoffer-manager": "^2.9.5",
     "steam-user": "^4.5.0",
