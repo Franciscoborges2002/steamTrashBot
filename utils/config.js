@@ -6,8 +6,8 @@ module.exports = {
     sharedSecret: process.env.ACCOUNT_SHARED_SECRET,
     identitySecret: process.env.ACCOUNT_IDENTITY_SECRET,
     botNewName: '',
-    botID64: '76561198067106756', 
-    botOwnerID64: '76561198243929698',
+    botID64: process.env.BOT_ID_64, 
+    botOwnerID64: process.env.BOT_ID_OWNER_64,
     acceptAllGroupInvites: 'false',
     prefix: '+'
 }
