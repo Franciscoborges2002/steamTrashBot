@@ -6,8 +6,16 @@
   "scripts": {
     "dev": "nodemon index"
   },
-  "author": "v0x4r1n0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Franciscoborges2002/steamTrashBot.git"
+  },
+  "author": "Francisco Borges",
   "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Franciscoborges2002/steamTrashBot/issues"
+  },
+  "homepage": "https://github.com/Franciscoborges2002/steamTrashBot#readme",
   "dependencies": {
     "dotenv": "^14.3.2",
     "nodemon": "^2.0.15",

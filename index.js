@@ -35,8 +35,8 @@ client.on('loggedOn', () => {
         if(config.botNewName != ''){//Check if has new name in the configs
             client.setPersona(1 , config.botNewName);//1 = Online, change the name of the acc
         }
-        
-        client.gamesPlayed([ 0, 440, 730, 531390, 531430, 531460, 578080, 622590, 813000, 777320, 433850, 439700, 553900, 876733, 304930, 10, 80, 363970]);
+        //0, 440, 730, 531390, 531430, 531460, 578080, 622590, 813000, 777320, 433850, 439700, 553900, 876733, 304930, 10, 80, 363970
+        client.gamesPlayed(['TrashBot: ON',0, 10, 80, 440, 730, 531390, 531430, 531460, 578080, 622590, 813000, 777320, 433850, 439700, 553900, 876733, 304930, 363970]);
 
         client.chatMessage(config.botOwnerID64, messages.botIsOnlineMessage);//Message the owner that the bot is online
     });
@@ -58,17 +58,21 @@ client.on('friendMessage', function(steamID, message){
                 if(steamID == config.botOwnerID64){
                     client.chatMessage(config.botOwnerID64, commandsResponses.helpAdmin); 
                 }else{
-                   client.chatMessage(steamID, commandsResponses.helpRegular); 
+                    client.chatMessage(steamID, commandsResponses.helpRegular); 
                 }
             break;
             case config.prefix + 'giveAll2Owner':
-                give2Owner();
+                if(steamID == config.botOwnerID64){
+                    give2Owner();
+                }else{
+                    client.chatMessage(steamID, commandsResponses.insufficientPermissions); 
+                }
             break;
             case config.prefix + 'developer':
                 client.chatMessage(steamID, commandsResponses.developer);
             break;
             default:
-                client.chatMessage(steamID, 'Command not found. Try to witre "' + config.prefix +'help"');
+                client.chatMessage(steamID, commandsResponses.commandNotFound);
             break;
             }
     });
@@ -228,6 +232,12 @@ client.on('newComments', function(count, myItems, discussions ){
     }
 });
 
+//When the bot is disconnected
+client.on('disconnected', function(result, msg){
+    client.chatMessage(config.botOwnerID64, messages.botDisconnected + '\n' + msg);//Message the owner that the bot is offline
+
+})
+
 function give2Owner(){
-    client.trade(config.botOwnerID64)
+    let offer = manager.createOffer(`${config.botOwnerID64}`);
 }

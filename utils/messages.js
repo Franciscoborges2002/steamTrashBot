@@ -9,4 +9,6 @@ module.exports = {
 
     botIsOnlineMessage: 'Bot is runnung :)',
     botReceivedItems: 'You have received trash $-$',
+    botDisconnected: 'The bot was disconnected!',
+
 }
