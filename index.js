@@ -27,6 +27,7 @@ const logOnOptions = {
 };
 
 client.logOn(logOnOptions);
+client.setOptions({enablePicsCache: true});//Need to enable enablePicsCache to use getOwnedApps
 
 client.on('loggedOn', () => {
     client.getPersonas([client.steamID], (personas) => {
@@ -61,12 +62,12 @@ client.on('friendMessage', function(steamID, message){
                     client.chatMessage(steamID, commandsResponses.helpRegular); 
                 }
             break;
-            case config.prefix + 'giveAll2Owner':
-                if(steamID == config.botOwnerID64){
+            case config.prefix + 'aa':
+                //if(steamID == config.botOwnerID64){
                     give2Owner();
-                }else{
+                /*}else{
                     client.chatMessage(steamID, commandsResponses.insufficientPermissions); 
-                }
+                }*/
             break;
             case config.prefix + 'developer':
                 client.chatMessage(steamID, commandsResponses.developer);
@@ -240,4 +241,36 @@ client.on('disconnected', function(result, msg){
 
 function give2Owner(){
     let offer = manager.createOffer(`${config.botOwnerID64}`);
+
+    let ownApps = getInventoryContents()//list with all user owned apps
+
+    ownApps.forEach((function(app){//For each app add to a trade and in the end send the trade
+        manager.getInventoryContents(app, 2,true,(err, inv, curr) =>{
+            if(!err){
+                inv.forEach((item)=>{//For each item in invetory
+                    offer.addMyItem(item);
+                })
+            }else{
+                console.log(">ERROR< while trying to load the invetorie for " + app);
+                console.log("ERROR: " + err);
+                client.chatMessage(config.botOwnerID64, 'Error on sending adding the item to ther offer');
+            }
+        })
+    }))
+    
+    offer.setMessage('All the items of the bot.');
+    offer.send((err, status) =>{
+        if(!err){
+            console.log('Trade sent');
+            console.log(status);
+        }else{
+            console.log('>ERROR< while sending the offer');
+            client.chatMessage(config.botOwnerID64, 'Error on sending the offer');
+        }
+    })
+
+}
+
+function getInventoryContents(){
+    return client.getOwnedApps(false)
 }
