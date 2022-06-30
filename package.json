@@ -4,7 +4,7 @@
   "description": "A normal steam trash bot",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon index"
+    "dev": "nodemon ./src/index"
   },
   "repository": {
     "type": "git",
@@ -17,11 +17,15 @@
   },
   "homepage": "https://github.com/Franciscoborges2002/steamTrashBot#readme",
   "dependencies": {
-    "dotenv": "^14.3.2",
-    "nodemon": "^2.0.15",
-    "steam-totp": "^2.1.0",
-    "steam-tradeoffer-manager": "^2.9.5",
-    "steam-user": "^4.5.0",
-    "steamcommunity": "^3.39.0"
+    "dotenv": "^16.0.1",
+    "nodemon": "^2.0.18",
+    "protobufjs": "6.10.3",
+    "steam-totp": "^2.1.2",
+    "steam-tradeoffer-manager": "^2.10.5",
+    "steam-user": "^4.24.3",
+    "steamcommunity": "^3.44.1"
+  },
+  "devDependencies": {
+    "yarn-upgrade-all": "^0.7.1"
   }
 }

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Create Config</title>
+        <style>
+            *{
+                margin: 0px;
+                padding: 0px;
+            }
+
+            body{
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            form{
+                padding: 50px;
+                display:flex;
+                flex-direction: column;
+                max-width: 200px;
+                gap: 10px;
+                background-color: black;
+            }
+
+            form h2{
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: white;
+            }
+
+            form section input {
+                width: 100%;
+            }
+
+            form button{
+                width: 100%;
+            }
+        </style>
+    </head>
+    <body>
+        <form onsubmit="createConfig('a','config', 'json')">
+            <h2>Create Config</h2>
+
+            <section class="mainStuff">
+                
+                <input type="text" placeholder="accountName" id="accountName"/>
+                <input type="password" placeholder="password" id="password"/>
+            </section>
+            
+            <section>
+               <input type="text" placeholder="id64Owner" id="id64Owner"/> 
+            </section>
+            
+            <button>
+                SUBMIT
+            </button>
+        </form>
+    </body>
+
+    <script>
+        let accountName = document.getElementById("accountName");
+        let password = document.getElementById("password");
+        let id64Owner = document.getElementById("id64Owner");
+
+        function downloadFiles(data, file_name, file_type) {
+            var file = new Blob([data], {type: file_type});
+            if (window.navigator.msSaveOrOpenBlob) 
+                window.navigator.msSaveOrOpenBlob(file, file_name);
+            else { 
+                var a = document.createElement("a"),
+                        url = URL.createObjectURL(file);
+                a.href = url;
+                a.download = file_name;
+                document.body.appendChild(a);
+                a.click();
+                setTimeout(function() {
+                    document.body.removeChild(a);
+                    window.URL.revokeObjectURL(url);  
+                }, 0); 
+            }
+        }
+    </script>
+</html>
