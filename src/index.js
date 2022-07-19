@@ -20,6 +20,10 @@ let manager = new TradeOfferManager({
 	cancelTime: "7200000"
 });
 
+if(config.sharedSecret === ''){
+    console.warn('You don\'t have the shared Secret, you need to insert the steam guard code.')
+}
+
 const logOnOptions = {
 	accountName : config.accountName,
 	password : config.password,
@@ -37,7 +41,7 @@ client.on('loggedOn', () => {
             client.setPersona(1 , config.botNewName);//1 = Online, change the name of the acc
         }
         //0, 440, 730, 531390, 531430, 531460, 578080, 622590, 813000, 777320, 433850, 439700, 553900, 876733, 304930, 10, 80, 363970
-        client.gamesPlayed(['TrashBot: ON',0, 10, 80, 440, 730, 531390, 531430, 531460, 578080, 622590, 813000, 777320, 433850, 439700, 553900, 876733, 304930, 363970]);
+        client.gamesPlayed(config.customGame);
 
         client.chatMessage(config.botOwnerID64, messages.botIsOnlineMessage);//Message the owner that the bot is online
     });
@@ -218,7 +222,7 @@ client.on('friendRelationship', (steamID, relationship) =>{
             };
 
             function invite2Group(){
-                community.inviteUserToGroup(steamID, '103582791462033662');
+                community.inviteUserToGroup(steamID, config.idGroup2Invite);
             };
 
             if(relationship == 2){
@@ -319,5 +323,5 @@ client.on('appOwnershipCached', function(){
 })
 
 function getOwnedAppsSteam(){
-        return client.getOwnedApps(false)
+    return client.getOwnedApps(false)
 }

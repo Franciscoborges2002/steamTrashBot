@@ -9,5 +9,7 @@ module.exports = {
     botID64: process.env.BOT_ID_64, 
     botOwnerID64: process.env.BOT_ID_OWNER_64,
     acceptAllGroupInvites: 'false',
-    prefix: '+'
+    prefix: '+',
+    customGame: 'TrashBot: ON',
+    idGroup2Invite: ''
 }
