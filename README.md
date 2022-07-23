@@ -13,6 +13,14 @@ A regular trash bot made in node.JS
 
 - Run "npm installs.bat" -> Will install all necessary things
 
-- Change the things in utils/config.js
+- Put bot info in utils/config.js
 
-- Then you can run startBOT.bat, and you tadah your trash bot for steam is ready
+- Then you can run startBOT.bat, and tadah your trash bot for steam is ready
+
+### Another tips:
+
+- You can change the messages that the bot sends in utils/messages.js and in commandResponse.js
+
+#### Future updates:
+
+- Make own version of how to get the ahred secret and the identity secret

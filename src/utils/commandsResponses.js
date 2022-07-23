@@ -6,5 +6,7 @@ module.exports= {
 
     helpRegular: `Commands:\n"owner": show owner profile\n"tradeOffer": i will start a trade offer with you\n"developer": show the developer of the bot\nThe prefix is: ${config.prefix}`,
     helpAdmin: `Commands:\n"owner": show owner profile\n"giveAll2Owner": giving all the tradable items to the owner\n"developer": show the developer of the bot\nThe prefix is: ${config.prefix}`,
+
     developer: 'The developer is https://github.com/Franciscoborges2002',
+    owner: `The owner of the bot is https://steamcommunity.com/profiles/${config.botOwnerID64}`
 }

@@ -39,9 +39,11 @@ client.on('loggedOn', () => {
 	
         if(config.botNewName != ''){//Check if has new name in the configs
             client.setPersona(1 , config.botNewName);//1 = Online, change the name of the acc
+        }else{
+            client.setPersona(1)
         }
         //0, 440, 730, 531390, 531430, 531460, 578080, 622590, 813000, 777320, 433850, 439700, 553900, 876733, 304930, 10, 80, 363970
-        client.gamesPlayed(config.customGame);
+        client.gamesPlayed([440, 730], false);
 
         client.chatMessage(config.botOwnerID64, messages.botIsOnlineMessage);//Message the owner that the bot is online
     });
@@ -58,24 +60,40 @@ client.on('friendMessage', function(steamID, message){
             console.log('>MESSAGE< Message from - ' + name + ' [ ' + steamID + ' ] - : ' + message + '.');
         };
 	
-        switch(message){
-            case config.prefix + 'help':
-                if(steamID == config.botOwnerID64){
-                    client.chatMessage(config.botOwnerID64, commandsResponses.helpAdmin); 
-                }else{
-                    client.chatMessage(steamID, commandsResponses.helpRegular); 
-                }
-            break;
-            case config.prefix + 'aa':
-                if(steamID == config.botOwnerID64){
-                        console.log("oioi")
-                        let offer = manager.createOffer(`${config.botOwnerID64}`);
-
-                        //let ownApps = client.getOwnedApps(false)//list with all user owned apps
-                        //console.log(ownApps)
-
-                /*ownApps.forEach((function(app){//For each app add to a trade and in the end send the trade
-                    manager.getInventoryContents(app, 2,true,(err, inv, curr) =>{
+        if(message.includes('[tradeoffer') && message.includes('[/tradeoffer]') || message.starsWith('/')){//Verify
+            
+        }else{
+            switch(message){
+                case config.prefix + 'help':
+                    if(steamID == config.botOwnerID64){
+                        client.chatMessage(config.botOwnerID64, commandsResponses.helpAdmin); 
+                    }else{
+                        client.chatMessage(steamID, commandsResponses.helpRegular); 
+                    }
+                break;
+                case config.prefix + 'aa':
+                    if(steamID == config.botOwnerID64){
+                            console.log("oioi")
+                            let offer = manager.createOffer(`${config.botOwnerID64}`);
+    
+                            //let ownApps = client.getOwnedApps(false)//list with all user owned apps
+                            //console.log(ownApps)
+    
+                    /*ownApps.forEach((function(app){//For each app add to a trade and in the end send the trade
+                        manager.getInventoryContents(app, 2,true,(err, inv, curr) =>{
+                            if(!err){
+                                inv.forEach((item)=>{//For each item in invetory
+                                    offer.addMyItem(item);
+                                })
+                            }else{
+                                console.log(">ERROR< while trying to load the invetorie for " + app);
+                                console.log("ERROR: " + err);
+                                client.chatMessage(config.botOwnerID64, 'Error on sending adding the item to ther offer');
+                            }
+                        })
+                    }))*/
+    
+                    manager.getInventoryContents(730, 2,true,(err, inv, curr) =>{
                         if(!err){
                             inv.forEach((item)=>{//For each item in invetory
                                 offer.addMyItem(item);
@@ -86,42 +104,34 @@ client.on('friendMessage', function(steamID, message){
                             client.chatMessage(config.botOwnerID64, 'Error on sending adding the item to ther offer');
                         }
                     })
-                }))*/
-
-                manager.getInventoryContents(730, 2,true,(err, inv, curr) =>{
-                    if(!err){
-                        inv.forEach((item)=>{//For each item in invetory
-                            offer.addMyItem(item);
-                        })
-                    }else{
-                        console.log(">ERROR< while trying to load the invetorie for " + app);
-                        console.log("ERROR: " + err);
-                        client.chatMessage(config.botOwnerID64, 'Error on sending adding the item to ther offer');
+                            
+                        offer.setMessage('All the items of the bot.');
+                        offer.send((err, status) =>{
+                        if(!err){
+                            console.log('Trade sent');
+                            console.log(status);
+                        }else{
+                            console.log('>ERROR< while sending the offer');
+                            client.chatMessage(config.botOwnerID64, 'Error on sending the offer');
+                        }
+                    })
+    
+                }else{
+                        client.chatMessage(steamID, commandsResponses.insufficientPermissions); 
                     }
-                })
-                        
-                    offer.setMessage('All the items of the bot.');
-                    offer.send((err, status) =>{
-                    if(!err){
-                        console.log('Trade sent');
-                        console.log(status);
-                    }else{
-                        console.log('>ERROR< while sending the offer');
-                        client.chatMessage(config.botOwnerID64, 'Error on sending the offer');
-                    }
-                })
-
-            }else{
-                    client.chatMessage(steamID, commandsResponses.insufficientPermissions); 
+                break;
+                case config.prefix + 'owner':
+                    client.chatMessage(steamID, commandsResponses.owner);
+                break;
+                case config.prefix + 'developer':
+                    client.chatMessage(steamID, commandsResponses.developer);
+                break;
+                default:
+                    client.chatMessage(steamID, commandsResponses.commandNotFound);
+                break;
                 }
-            break;
-            case config.prefix + 'developer':
-                client.chatMessage(steamID, commandsResponses.developer);
-            break;
-            default:
-                client.chatMessage(steamID, commandsResponses.commandNotFound);
-            break;
-            }
+        }
+        
     });
 });
 
@@ -166,11 +176,15 @@ manager.on('newOffer', offer =>{
             if(offer.isGlitched() || offer.state === 11){
                 declineOffer(offer);
                 console.log('>OFFER< Offer is glitched.'); 
-            } else if(offer.itemsToGive.length === 0){
-                acceptOffer(offer);
-                client.chatMessage(config.botOwnerID64, messages.botReceivedItems);
-                console.log('>OFFER< Donation from ' + name  + '.');
-                client.chatMessage(steamID, messages.offer);
+            } else if(offer.itemsToGive.length === 0){//If we dont give any item
+                acceptOffer(offer);//accept the offer
+
+                client.chatMessage(config.botOwnerID64, messages.botReceivedItems);//Message the bot owner that received items
+
+                console.log('>OFFER< Donation from ' + name  + '.');//console the donation
+                
+                client.chatMessage(steamID, messages.offer);//Chat the donator
+
                 community.postUserComment(steamID, messages.commentOnProfile, function(err){
                     if(err){
                         client.chatMessage(steamID, messages.commentOnProfileDonatorERROR);
@@ -216,7 +230,7 @@ client.on('friendRelationship', (steamID, relationship) =>{
                         console.log('>ERROR< An error ocurred while accepting friends request from ' + name + ' .');
                     } else {
                         console.log('>SUCESS< ' + name + ' is your friend now.');
-                        client.chatMessage(steamID, `Hello i\'m ' + client.accountInfo.name + ' i accept the garbage from your inventorie :)\nType "${config.prefix}help" for Help.`)
+                        client.chatMessage(steamID, 'Hello i\'m ' + client.accountInfo.name + ` i accept the garbage from your inventorie :)\nType "${config.prefix}help" for Help.`)
                     };
                 });
             };
@@ -234,6 +248,7 @@ client.on('friendRelationship', (steamID, relationship) =>{
     });
 });
 
+//Not accept trade requests
 client.on('tradeRequest', function(steamID, respond){
     client.getPersonas([steamID], function(err, personas) {
         if(err){
@@ -250,6 +265,7 @@ client.on('tradeRequest', function(steamID, respond){
 });
 
 
+//Accept or decline group invites
 client.on('groupRelationship', function(sid, relationship){
     console.log('>GROUP_INVITE< An invite to join in steam group.');
     if(config.acceptAllGroupInvites === 'true'){
@@ -316,11 +332,6 @@ function give2Owner(){
     })
 
 }
-
-
-client.on('appOwnershipCached', function(){
-    
-})
 
 function getOwnedAppsSteam(){
     return client.getOwnedApps(false)
